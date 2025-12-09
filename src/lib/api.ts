@@ -1,30 +1,29 @@
 import axios from "axios";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-
+const BASE_URL = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/$/, "");
 
 // ------- AI Generate --------
 export const generateStudyContent = async (text: string) => {
-  const res = await axios.post(`${API_URL}/generate`, { text });
+  const res = await axios.post(`${BASE_URL}/generate`, { text });
   return res.data;
 };
 
 // ------- Auth: Register -------
 export const registerUser = async (username: string, password: string) => {
-  const res = await axios.post(`${API_URL}/register`, { username, password });
+  const res = await axios.post(`${BASE_URL}/register`, { username, password });
   return res.data; // { token, username }
 };
 
 // ------- Auth: Login --------
 export const loginUser = async (username: string, password: string) => {
-  const res = await axios.post(`${API_URL}/login`, { username, password });
+  const res = await axios.post(`${BASE_URL}/login`, { username, password });
   return res.data; // { token, username }
 };
 
 // ------- SAVE Session --------
 export const saveSession = async (token: string, content: any, title: string) => {
   const res = await axios.post(
-    `${API_URL}/save_session`,
+    `${BASE_URL}/save_session`,
     { content, title },
     {
       headers: {
@@ -37,7 +36,7 @@ export const saveSession = async (token: string, content: any, title: string) =>
 
 // ------- LOAD Last Session -------
 export const fetchLastSession = async (token: string) => {
-  const res = await axios.get(`${API_URL}/last_session`, {
+  const res = await axios.get(`${BASE_URL}/last_session`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -48,7 +47,7 @@ export const fetchLastSession = async (token: string) => {
 
 // ------- LOAD ALL Sessions -------
 export const fetchAllSessions = async (token: string) => {
-  const res = await axios.get(`${API_URL}/all_sessions`, {
+  const res = await axios.get(`${BASE_URL}/all_sessions`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -57,7 +56,7 @@ export const fetchAllSessions = async (token: string) => {
 
 // ------- DELETE Session -------
 export const deleteSession = async (token: string, id: string) => {
-  const res = await axios.delete(`${API_URL}/sessions/${id}`, {
+  const res = await axios.delete(`${BASE_URL}/sessions/${id}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -67,7 +66,7 @@ export const deleteSession = async (token: string, id: string) => {
 // ------- Download Flashcards PDF -------
 export const downloadFlashcardsPdf = async (title: string, flashcards: any[]) => {
   const res = await axios.post(
-    `${API_URL}/export_flashcards_pdf`,
+    `${BASE_URL}/export_flashcards_pdf`,
     { title, flashcards },
     { responseType: "blob" }
   );
@@ -77,7 +76,7 @@ export const downloadFlashcardsPdf = async (title: string, flashcards: any[]) =>
 // ------- Download Quiz PDF -------
 export const downloadQuizPdf = async (title: string, quiz: any[]) => {
   const res = await axios.post(
-    `${API_URL}/export_quiz_pdf`,
+    `${BASE_URL}/export_quiz_pdf`,
     { title, quiz },
     { responseType: "blob" }
   );
