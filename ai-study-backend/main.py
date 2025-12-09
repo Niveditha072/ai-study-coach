@@ -34,7 +34,7 @@ app = FastAPI(title="AI Study Coach API")
 # CORS settings
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "https://ai-study-coach-8uh3.vercel.app","https://ai-study-coach-o6cg.onrender.com"],
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
