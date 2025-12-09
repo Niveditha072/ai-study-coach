@@ -6,3 +6,4 @@ openai
 pymongo
 bcrypt
 PyJWT
+reportlab
